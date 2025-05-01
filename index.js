@@ -20,7 +20,7 @@ app.use(cors({
   origin: ["http://localhost:5173", "https://grey-alpaca-117753.hostingersite.com"],
   credentials: true,
 }));
-app.use(cors(corsOptions));
+
 
 
 app.use(cookieParser());
