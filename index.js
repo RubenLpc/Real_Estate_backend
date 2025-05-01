@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 };
 */
 app.use(cors({
-  origin: ["http://localhost:5173", "https://grey-alpaca-117753.hostingersite.com"],
+  origin: ["http://localhost:5173", "https://grey-alpaca-117753.hostingersite.com", "https://my-real-estate-ac7d.onrender.com/"],
   credentials: true,
 }));
 
