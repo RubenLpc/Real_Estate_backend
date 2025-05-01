@@ -16,10 +16,10 @@ const PORT = process.env.PORT || 3000;
   credentials: true,
 };
 */
-const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:5173', // fallback pentru dev
+app.use(cors({
+  origin: ["http://localhost:5173", "https://grey-alpaca-117753.hostingersite.com"],
   credentials: true,
-};
+}));
 app.use(cors(corsOptions));
 
 
