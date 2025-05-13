@@ -9,7 +9,7 @@ datasource db {
 }
 
 
-
+/*
 model Residency {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
@@ -24,4 +24,40 @@ model Residency {
   video       String?  // opțional
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+*/
+
+model Residency {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  propertyType      String
+  status            String
+  description       String
+  address           String?
+  region            String
+
+  landArea          Int?
+  livingArea        Int?
+  rooms             Int?
+  constructionYear  Int?
+  renovationNeed    String?
+  zoning            String?
+  energyCertificate String?
+
+  price             Int
+  negotiable        Boolean  @default(false)
+  commission        String?
+  availabilityDate  DateTime?
+
+  image             String    // corresponds to mainImage
+  images            String[]  // galleryImages
+  video             String?
+  droneVideo        String?
+  documents         String[]
+
+  features          String[]
+  tags              String[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

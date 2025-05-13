@@ -4,7 +4,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { userRouter } from './routes/userRoute.js';
 import { residencyRoute } from './routes/residencyRoute.js';
-
+import nodemailer from 'nodemailer';
+import { mailRoute } from './routes/mailRoute.js';
 
 
 dotenv.config();  
@@ -35,3 +36,4 @@ app.listen(PORT, () => {
 
 app.use('/api',userRouter )
 app.use("/api/residency",residencyRoute);
+app.use("/api/mail",mailRoute);

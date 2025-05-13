@@ -8,30 +8,60 @@ export const createResidency = asyncHandler(async (req, res) => {
 
   const {
     title,
+    propertyType,
+    status,
     description,
-    price,
     address,
-    country,
-    city,
-    facilities,
-    image,
-    images,
-    video,
-  } = req.body.data;
+    region,
+    landArea,
+    livingArea,
+    rooms,
+    constructionYear,
+    renovationNeed,
+    zoning,
+    energyCertificate,
+    price,
+    negotiable,
+    commission,
+    availabilityDate,
+    mainImage,
+    galleryImages,
+    videoUrl,
+    droneVideoUrl,
+    documents,
+    features,
+    tags,
+  } = req.body;
+
+  
 
   try {
     const residency = await prisma.residency.create({
       data: {
         title,
+        propertyType,
+        status,
         description,
-        price,
         address,
-        country,
-        city,
-        facilities,
-        image,
-        images,
-        video,
+        region,
+        landArea,
+        livingArea,
+        rooms,
+        constructionYear,
+        renovationNeed,
+        zoning,
+        energyCertificate: energyCertificate || null,
+        price,
+        negotiable,
+        commission,
+        availabilityDate: availabilityDate ? new Date(availabilityDate) : null,
+        image: mainImage,
+        images: galleryImages,
+        video: videoUrl,
+        droneVideo: droneVideoUrl,
+        documents,
+        features,
+        tags,
       },
     });
     console.log("Residency created:", residency);
@@ -49,7 +79,7 @@ export const deleteResidency = asyncHandler(async (req, res) => {
 
   try {
     const deleted = await prisma.residency.delete({
-      where: { id},
+      where: { id },
     });
 
     res.send({ message: "Residency deleted successfully", deleted });
@@ -61,7 +91,6 @@ export const deleteResidency = asyncHandler(async (req, res) => {
   }
 });
 
-
 export const getAllResidencies = asyncHandler(async (req, res) => {
   const residencies = await prisma.residency.findMany({
     orderBy: {
@@ -71,7 +100,6 @@ export const getAllResidencies = asyncHandler(async (req, res) => {
   res.send(residencies);
 });
 
-// function to get a specific document/residency
 export const getResidency = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
