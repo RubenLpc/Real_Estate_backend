@@ -46,8 +46,6 @@ export const sendEmail = asyncHandler(async (req, res) => {
 // controllers/propertyContactController.js
 // controllers/propertyContactController.js
 
-import asyncHandler from 'express-async-handler';
-import nodemailer from 'nodemailer';
 
 export const sendPropertyContact = asyncHandler(async (req, res) => {
   const {
