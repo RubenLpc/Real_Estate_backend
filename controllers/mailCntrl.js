@@ -43,3 +43,49 @@ export const sendEmail = asyncHandler(async (req, res) => {
     }
   });
   
+// controllers/propertyContactController.js
+export const sendPropertyContact = asyncHandler(async (req, res) => {
+  const {
+    propertyTitle,
+    anrede,
+    vorname,
+    nachname,
+    email,
+    telefon,
+    nachricht,
+  } = req.body;
+
+  // configurează transporter-ul
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS, // App Password
+    },
+  });
+
+  // construiește corpul mesajului
+  const mailOptions = {
+    from: email,
+    to: process.env.MANAGER_EMAIL || 'lupancuruben2@gmail.com',
+    subject: `Anfrage zur Immobilie „${propertyTitle}"`,
+    text: `
+      Objekt: ${propertyTitle}
+      Anrede: ${anrede}
+      Name: ${vorname} ${nachname}
+      E-Mail: ${email}
+      Telefon: ${telefon || '-'}
+      
+      Nachricht:
+      ${nachricht || '-'}
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'E-Mail gesendet' });
+  } catch (error) {
+    console.error('Error sending property contact email:', error);
+    res.status(500).json({ message: 'Fehler beim Senden' });
+  }
+});
