@@ -20,7 +20,7 @@ export const sendEmail = asyncHandler(async (req, res) => {
   
     const mailOptions = {
       from: email,
-      to: 'lupancuruben2@gmail.com',
+      to: 'office@fidelia.immo',
       subject: 'Neue Suchanfrage',
       text: `
         Anrede: ${anrede}
@@ -85,7 +85,7 @@ export const sendPropertyContact = asyncHandler(async (req, res) => {
 
   const mailOptions = {
     from: email,
-    to: process.env.MANAGER_EMAIL || 'lupancuruben2@gmail.com',
+    to: process.env.MANAGER_EMAIL || 'office@fidelia.immo',
     subject: `Anfrage zur Immobilie „${propertyTitle}"`,
     text: `
 Objekt: ${propertyTitle}
