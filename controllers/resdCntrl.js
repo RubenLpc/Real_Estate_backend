@@ -74,6 +74,79 @@ export const createResidency = asyncHandler(async (req, res) => {
   }
 });
 
+export const updateResidency = asyncHandler(async (req, res) => {
+  const residencyId = req.params.id;
+ 
+
+  const {
+    title,
+    propertyType,
+    status,
+    description,
+    address,
+    region,
+    landArea,
+    livingArea,
+    rooms,
+    constructionYear,
+    renovationNeed,
+    zoning,
+    energyCertificate,
+    price,
+    negotiable,
+    commission,
+    availabilityDate,
+    mainImage,
+    galleryImages,
+    videoUrl,
+    droneVideoUrl,
+    documents,
+    features,
+    tags,
+  } = req.body;
+
+  try {
+    const updated = await prisma.residency.update({
+      where: { id: residencyId },
+      data: {
+        title,
+        propertyType,
+        status,
+        description,
+        address,
+        region,
+        landArea,
+        livingArea,
+        rooms,
+        constructionYear,
+        renovationNeed,
+        zoning,
+        energyCertificate: energyCertificate || null,
+        price,
+        negotiable,
+        commission,
+        availabilityDate: availabilityDate ? new Date(availabilityDate) : null,
+        image: mainImage,
+        images: galleryImages,
+        video: videoUrl,
+        droneVideo: droneVideoUrl,
+        documents,
+        features,
+        tags,
+      },
+    });
+
+    res.json({ message: "Residency updated successfully", residency: updated });
+  } catch (err) {
+    if (err.code === "P2025") {
+      res.status(404);
+      throw new Error("Residency not found");
+    }
+    throw new Error(err.message);
+  }
+});
+
+
 export const deleteResidency = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -99,6 +172,20 @@ export const getAllResidencies = asyncHandler(async (req, res) => {
   });
   res.send(residencies);
 });
+export const getAvailableResidencies = asyncHandler(async (req, res) => {
+  const residencies = await prisma.residency.findMany({
+    where: {
+      status: {
+        not: "reserviert",
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  res.send(residencies);
+});
+
 
 export const getResidency = asyncHandler(async (req, res) => {
   const { id } = req.params;
