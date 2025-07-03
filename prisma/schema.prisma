@@ -35,16 +35,25 @@ model Residency {
   description       String
   address           String?
   region            String
+  shortDescription String?
 
-  landArea          Int?
-  livingArea        Int?
+
+  livingArea      Float?     // Wohnfläche
+  usableArea      Float?     // Nutzfläche
+  hallArea        Float?     // Hallenfläche
+  officeArea      Float?     // Bürofläche
+  landArea        Float?     // Grundfläche
+  pavedArea       Float?     // Befestigte Fläche
+
+  //landArea          Int?
+  //livingArea        Int?
   rooms             Int?
   constructionYear  Int?
   renovationNeed    String?
   zoning            String?
   energyCertificate String?
 
-  price             Int
+  price             Float
   negotiable        Boolean  @default(false)
   commission        String?
   availabilityDate  DateTime?
